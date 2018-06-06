@@ -1,0 +1,46 @@
+---
+title: "Valid-Tab_v1"
+author: "Eric-Alexandre Coudry"
+date: "4 juin 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+install.packages("knitr")
+library(knitr)
+install.packages("kableExtra")
+library(kableExtra)
+library(dplyr)
+library(lubridate)
+library(eeptools)
+
+fipa <- readRDS('K:/Data/2015-2016/PA24/FIPA_PA24.rds')
+```
+
+# FIPA_PA24
+
+```{r results='asis'}
+
+as.numeric(as.Date(DatNaiss))
+
+fipa <- fipa %>% 
+ mutate(DatNaiss = as.Date(DatNaiss),
+        age = age_calc(DatNaiss, 
+                      enddate = as.Date('2015-04-01'), 
+                      units = "years", precise = F)) %>%
+  arrange(BenBanls,Sexe)
+
+
+
+
+as.character(as.Date("2015-04-01")) - as.numeric(as.Date(DatNaiss)) / 365
+# Calcul de l'age
+
+fipa["age"]<-age_calc(fipa$DatNaiss, 
+                      enddate = as.Date('2015-04-01'), 
+                      units = "years", precise = F)
+
+# Catégorisation par groupe d'age. Excluant les valeurs de droite
+
+catage<-c(0,65,70,75,80,85,90,95,100,105,110)
+
