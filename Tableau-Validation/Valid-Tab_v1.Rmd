@@ -43,9 +43,3 @@ count(Groupe, Sexe) %>%
   mutate(Total = Femmes + Hommes)
 
 ```
-
-
-
-
-
-
