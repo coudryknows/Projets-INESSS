@@ -36,11 +36,11 @@ fipa_1 <- fipa %>%
   
 count(Groupe, Sexe) %>%
   
-  spread(Sexe, 3)
+  spread(Sexe, 3) %>%
   
-  colnames(fipa_1) <- c("Groupe","Femmes","Hommes")
+  arrange(match(Groupe,c("[60,70[","[71,80[","[81,90[","[91,100[","[100 et +["))) %>%
   
-fipa_1 <- fipa_1 %>%
+  select(Groupe, Hommes = M, Femmes = F)  %>%
   
   mutate(Total = Femmes + Hommes)
 
