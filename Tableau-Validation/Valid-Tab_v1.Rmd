@@ -35,8 +35,15 @@ fipa_1 <- fipa %>%
                                            if_else(age >= 91 & age <= 100, "[91,100[", "[100 et +["))))) %>%
   
 count(Groupe, Sexe) %>%
-  spread(Sexe, 3) %>%
-  arrange(Groupe)
+  
+  spread(Sexe, 3)
+  
+  colnames(fipa_1) <- c("Groupe","Femmes","Hommes")
+  
+fipa_1 <- fipa_1 %>%
+  
+  mutate(Total = Femmes + Hommes)
+  
   
   
 
