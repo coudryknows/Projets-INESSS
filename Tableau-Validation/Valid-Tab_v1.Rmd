@@ -46,7 +46,7 @@ fipa_1 <- fipa_1 %>%
 
 
   
-
+tatata
   
   
 
