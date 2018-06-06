@@ -2,7 +2,7 @@
 title: "Valid-Tab_v1"
 author: "Eric-Alexandre Coudry"
 date: "4 juin 2018"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -41,5 +41,13 @@ count(Groupe, Sexe) %>%
   select(Groupe, Hommes = M, Femmes = F)  %>%
   
   mutate(Total = Femmes + Hommes)
+
+tot_fi <- c("Total",sum(fipa_1$Hommes),sum(fipa_1$Femmes), sum(fipa_1$Total))
+  
+fipa_1 <- rbind(fipa_1, tot_fi) 
+         
+kable(fipa_1, "latex") %>%
+  kable_styling(latex_options = "striped") %>%
+  add_header_above(c("","Sexe" = 2, ""))
 
 ```
