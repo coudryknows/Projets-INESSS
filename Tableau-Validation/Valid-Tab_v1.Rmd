@@ -14,6 +14,8 @@ library(eeptools)
 library(tidyr)
 
 fipa <- readRDS('K:/Data/2015-2016/PA24/FIPA_PA24.rds')
+
+options(scipen = 999, digits = 2)
 ```
 
 # FIPA_PA24
@@ -42,11 +44,32 @@ count(Groupe, Sexe) %>%
   
   mutate(Total = Femmes + Hommes)
 
-tot_fi <- c("Total",sum(fipa_1$Hommes),sum(fipa_1$Femmes), sum(fipa_1$Total))
+
+
+
+totFIPA_h <- sum(fipa_1$Hommes)
+totFIPA_F <- sum(fipa_1$Femmes)
+totFIPA_T <- sum(fipa_1$Total)
+
+tot_fi <- c("Total",totFIPA_h,totFIPA_F,totFIPA_T )
+
   
-fipa_1 <- rbind(fipa_1, tot_fi) 
+fipa_1 <- rbind(fipa_1, tot_fi)
+
+
+fipa_1 <- fipa_1 %>%
+  
+mutate(Hommes = as.numeric(Hommes),
+       Femmes = as.numeric(Femmes),
+       Total = as.numeric(Total)) %>%
+  
+  mutate(Hommes = paste0(Hommes," (",Hommes / totFIPA_h * 100,"%)"),
+         Femmes = paste0(Femmes," (",Femmes / totFIPA_F * 100,"%)"))
+         # Total = paste0(Total," (",Total / totFIPA_T * 100,"%)"))
          
-kable(fipa_1, "latex") %>%
+         
+         
+  kable(fipa_1, "latex") %>%       
   kable_styling(latex_options = "striped") %>%
   add_header_above(c("","Sexe" = 2, ""))
 
