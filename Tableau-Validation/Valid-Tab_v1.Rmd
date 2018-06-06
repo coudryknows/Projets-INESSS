@@ -43,3 +43,4 @@ count(Groupe, Sexe) %>%
   mutate(Total = Femmes + Hommes)
 
 ```
+GB - Valide ligne 43
