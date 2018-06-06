@@ -13,6 +13,7 @@ library(kableExtra)
 library(dplyr)
 library(lubridate)
 library(eeptools)
+library(tidyr)
 
 fipa <- readRDS('K:/Data/2015-2016/PA24/FIPA_PA24.rds')
 ```
@@ -21,38 +22,30 @@ fipa <- readRDS('K:/Data/2015-2016/PA24/FIPA_PA24.rds')
 
 ```{r results='asis'}
 
-fipa <- fipa %>% 
+fipa_1 <- fipa %>% 
  mutate(DatNaiss = as.Date(DatNaiss),
         age = age_calc(DatNaiss, 
                       enddate = as.Date('2015-04-01'), 
                       units = "years", precise = F)) %>%
   arrange(BenBanls,Sexe) %>%
-  count(Sexe, age) %>%
-  group_by(Sexe)
-
-
-
-
-as.character(as.Date("2015-04-01")) - as.numeric(as.Date(DatNaiss)) / 365
-# Calcul de l'age
-
-fipa["age"]<-age_calc(fipa$DatNaiss, 
-                      enddate = as.Date('2015-04-01'), 
-                      units = "years", precise = F)
-
-# Catégorisation par groupe d'age. Excluant les valeurs de droite
-
-catage<-c(0,65,70,75,80,85,90,95,100,105,110)
-
-fipa["Groupe d'age"]<- cut(fipa$age, breaks = catage, right = FALSE)
-
+ 
+   mutate(Groupe = if_else(age >= 60 & age <= 70,"[60,70[",
+                           if_else(age >= 71 & age <= 80, "[71,80[",
+                                   if_else(age >= 81 & age <= 90, "[81,90[",
+                                           if_else(age >= 91 & age <= 100, "[91,100[", "[100 et +["))))) %>%
+  
+count(Groupe, Sexe) %>%
+  spread(Sexe, 3) %>%
+  arrange(Groupe)
+  
   
 
-tabage<-as.data.frame(table(fipa$`Groupe d'age`))
 
-colnames(tabage)<-c("Groupe d'age","Nbr")
 
-knitr::kable(tabage, format = 'latex' )
+
+
+
+
 
 ```
 
