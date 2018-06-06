@@ -21,14 +21,14 @@ fipa <- readRDS('K:/Data/2015-2016/PA24/FIPA_PA24.rds')
 
 ```{r results='asis'}
 
-as.numeric(as.Date(DatNaiss))
-
 fipa <- fipa %>% 
  mutate(DatNaiss = as.Date(DatNaiss),
         age = age_calc(DatNaiss, 
                       enddate = as.Date('2015-04-01'), 
                       units = "years", precise = F)) %>%
-  arrange(BenBanls,Sexe)
+  arrange(BenBanls,Sexe) %>%
+  count(Sexe, age) %>%
+  group_by(Sexe)
 
 
 
@@ -43,4 +43,21 @@ fipa["age"]<-age_calc(fipa$DatNaiss,
 # Catégorisation par groupe d'age. Excluant les valeurs de droite
 
 catage<-c(0,65,70,75,80,85,90,95,100,105,110)
+
+fipa["Groupe d'age"]<- cut(fipa$age, breaks = catage, right = FALSE)
+
+  
+
+tabage<-as.data.frame(table(fipa$`Groupe d'age`))
+
+colnames(tabage)<-c("Groupe d'age","Nbr")
+
+knitr::kable(tabage, format = 'latex' )
+
+```
+
+
+
+
+
 
