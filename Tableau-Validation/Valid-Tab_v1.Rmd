@@ -42,19 +42,6 @@ count(Groupe, Sexe) %>%
   
   mutate(Total = Femmes + Hommes)
 
-<<<<<<< HEAD
-  
-  
-
-
-
-
-
-
-
-
-=======
->>>>>>> bfad16c0164b6ca3452764ecb2b37a1b08df0c6c
 ```
 
 
