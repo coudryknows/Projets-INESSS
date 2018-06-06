@@ -6,9 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-install.packages("knitr")
 library(knitr)
-install.packages("kableExtra")
 library(kableExtra)
 library(dplyr)
 library(lubridate)
@@ -43,19 +41,6 @@ count(Groupe, Sexe) %>%
 fipa_1 <- fipa_1 %>%
   
   mutate(Total = Femmes + Hommes)
-
-
-  
-tatata
-  
-  
-
-
-
-
-
-
-
 
 ```
 
