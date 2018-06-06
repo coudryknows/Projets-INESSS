@@ -44,9 +44,6 @@ fipa_1 <- fipa_1 %>%
   
   mutate(Total = Femmes + Hommes)
 
-
-  
-tatata
   
   
 
