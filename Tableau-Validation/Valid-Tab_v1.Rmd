@@ -56,7 +56,7 @@ totFIPA <- list(
 tot_fi <- c("Total",
             totFIPA[["Hommes"]],
             totFIPA[["Femmes"]],
-            totFIPA[["total"]])
+            totFIPA[["Total"]])
   
 fipa_1 <- rbind(fipa_1, tot_fi)
 
