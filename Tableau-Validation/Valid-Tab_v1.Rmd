@@ -47,12 +47,16 @@ count(Groupe, Sexe) %>%
 
 
 
-totFIPA_h <- sum(fipa_1$Hommes)
-totFIPA_F <- sum(fipa_1$Femmes)
-totFIPA_T <- sum(fipa_1$Total)
+totFIPA <- list(
+  Hommes = sum(fipa_1$Hommes),
+  Femmes = sum(fipa_1$Femmes),
+  Total = sum(fipa_1$Total)
+)
 
-tot_fi <- c("Total",totFIPA_h,totFIPA_F,totFIPA_T )
-
+tot_fi <- c("Total",
+            totFIPA[["Hommes"]],
+            totFIPA[["Femmes"]],
+            totFIPA[["total"]])
   
 fipa_1 <- rbind(fipa_1, tot_fi)
 
